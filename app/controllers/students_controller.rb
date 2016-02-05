@@ -1,7 +1,5 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  has_attached_file :file1
-  validates_attachment :file1, content_type: { content_type: "application/pdf" }
 
   # GET /students
   # GET /students.json
@@ -71,6 +69,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:unmid, :email, :name)
+      params.require(:student).permit(:unmid, :email, :name, :file1)
     end
 end

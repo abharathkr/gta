@@ -1,4 +1,4 @@
-<%= form_for(@student) do |f| %>
+<%= form_for @student, html: {multipart: true} do |f| %>
   <% if @student.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
@@ -30,6 +30,13 @@
     <div class="field form-group col-xs-5">
       <%= f.label :name %><br>
       <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field form-group col-xs-5">
+      <%= f.label :file1 %><br>
+      <%= f.file_field :file1, class: "form-control" %>
     </div>
   </div>
 
