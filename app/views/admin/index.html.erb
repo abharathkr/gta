@@ -1,0 +1,24 @@
+<h1>Admin#index</h1>
+<p>Find me in app/views/admin/index.html.erb</p>
+
+<h2>Waiting list</h2>
+<% @students.each do |s| %>
+<% if s.issued == false %>
+<tr>
+    <td><%= s.unmid %></td>
+    <td><%= s.email %></td>
+    <td><%= s.name %></td>
+    <td><%= link_to "Move to issued section" , admin_move_path(:id => s.id) , class: "btn btn-default" %></td>
+</tr></br>
+<% end %>
+<% end %>
+<h2>Issued list</h2>
+<% @students.each do |s| %>
+<% if s.issued? %>
+<tr>
+    <td><%= s.unmid %></td>
+    <td><%= s.email %></td>
+    <td><%= s.name %></td>
+</tr></br>
+<% end %>
+<% end %>

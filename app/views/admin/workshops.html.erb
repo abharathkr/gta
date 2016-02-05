@@ -1,0 +1,9 @@
+<h2>Workshops</h2>
+<% @workshops.each do |w| %>
+<tr>
+    <td><%= w.year %></td>
+    <td><%= w.semester %></td>
+    <td><%= w.name %></td>
+</tr></br>
+<% end %>
+<a href="/admin/createworkshop">Add a new workshop</a>
