@@ -1,0 +1,13 @@
+<h2>Students</h2>
+
+<div id="students">
+<% @students.each do |s| %>
+<tr>
+    <td><%= Workshop.find_by(id: s.workshop_id).name %></td>
+    <td><%= Workshop.find_by(id: s.workshop_id).year %></td>
+	<td><%= Workshop.find_by(id: s.workshop_id).semester %></td>
+    <td><%= s.unmid %></td>
+</tr></br>
+<% end %>
+</div>
+

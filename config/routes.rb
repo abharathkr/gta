@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   get 'admin/workshops'
 
-  get 'admin/createworkshop'
-
   post 'admin/addworkshop'
+  
+  get 'admin/students'
+
+  post 'admin/addstudent'
+
+  get 'admin/editstudents'
 
   devise_for :admins
   resources :students

@@ -1,0 +1,18 @@
+<h2>Edit students</h2>
+<tr>
+	<td><%= @ws.name %></td>
+	<td><%= @ws.year %></td>
+	<td><%= @ws.semester %></td>
+</tr>
+
+<% @currentstudents.each do |cs| %>
+<tr>
+	<td><%= cs.unmid %></td>
+</tr>
+<% end %>
+
+<%= form_tag('/admin/addstudent', multipart: true, method: :post) do %>
+<%= number_field_tag :unmid %>
+<%= hidden_field_tag 'workshop_id', @ws.id %>
+<%= submit_tag "Submit" %>
+<% end %>

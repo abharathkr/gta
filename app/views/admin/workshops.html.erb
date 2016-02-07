@@ -1,9 +1,22 @@
+
 <h2>Workshops</h2>
+
+<div id="workshops">
 <% @workshops.each do |w| %>
 <tr>
     <td><%= w.year %></td>
     <td><%= w.semester %></td>
     <td><%= w.name %></td>
+    <td><%= link_to 'Add students to this workshop', admin_editstudents_path(:id => w.id ) %></td>
 </tr></br>
 <% end %>
-<a href="/admin/createworkshop">Add a new workshop</a>
+</div>
+
+<h2>New workshop</h2>
+<%= form_tag('/admin/addworkshop', multipart: true, method: :post) do %>
+
+<%= select_tag "year", options_for_select( 2010.. 8.years.from_now.year) %>
+<%= select_tag "semester", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe %>
+<%= text_field_tag :name %>
+<%= submit_tag "Submit" %>
+<% end %>
