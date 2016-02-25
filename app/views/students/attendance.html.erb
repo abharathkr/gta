@@ -1,0 +1,12 @@
+
+<p> Add workshops you attended</p>
+
+<%= form_tag('/students/studentworkshops', multipart: true, method: :post) do %>
+
+<%= select_tag "year", options_for_select( 2010.. 8.years.from_now.year) %>
+<%= select_tag "semester", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe %>
+<%= text_field_tag "name" %>
+<%= hidden_field_tag 'student_id', @stdid %>
+<%= submit_tag "Add" %>
+
+<% end %>

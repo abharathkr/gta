@@ -3,6 +3,16 @@ Rails.application.routes.draw do
 
   get 'admin/move'
 
+  get 'admin/moveback'
+
+  delete 'admin/deletestudent'
+
+  delete 'admin/deleteworkshop'
+
+  get 'admin/geditworkshop'
+
+  put 'admin/editworkshop'
+
   get 'admin/workshops'
 
   post 'admin/addworkshop'
@@ -13,9 +23,20 @@ Rails.application.routes.draw do
 
   get 'admin/editstudents'
 
+  get 'students/attendance'
+
+  get 'students/attendances'
+
+  post 'students/studentworkshops'
+
+  get 'students/applicationfinished'
+
+  get 'students/search'
+  
   devise_for :admins
   resources :students
-  root to: 'students#index'
+  root to: 'students#new'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

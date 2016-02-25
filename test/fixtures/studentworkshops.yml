@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  y1: 1
+  s1: MyString
+  n1: MyString
+  y2: 1
+  s2: MyString
+  n2: MyString
+  y3: 1
+  s3: MyString
+  n3: MyString
+  y4: 1
+  s4: MyString
+  n4: MyString
+
+two:
+  y1: 1
+  s1: MyString
+  n1: MyString
+  y2: 1
+  s2: MyString
+  n2: MyString
+  y3: 1
+  s3: MyString
+  n3: MyString
+  y4: 1
+  s4: MyString
+  n4: MyString

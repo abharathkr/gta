@@ -9,7 +9,14 @@ class AdminController < ApplicationController
   	@stu = Student.find_by(id: params["id"])
   	@stu.issued = true
   	@stu.save
-  	redirect_to admin_index_path
+    redirect_to admin_index_path
+  end
+
+  def moveback
+    @stu = Student.find_by(id: params["id"])
+    @stu.issued = false
+    @stu.save
+    redirect_to admin_index_path
   end
 
   def workshops
@@ -49,6 +56,32 @@ class AdminController < ApplicationController
   	redirect_to admin_editstudents_path(:id => @student.workshop_id)
   end
 
+  def deletestudent
+    @stu = Student.find_by(id: params["id"])
+    @stu.destroy
+    redirect_to admin_index_path    
+  end
+
+  def deleteworkshop
+    @wsp = Workshop.find_by(id: params["id"])
+    @wsp.destroy
+    redirect_to admin_workshops_path    
+  end
+
+  def geditworkshop
+    @workshop = Workshop.find_by(id: params["id"])
+    @sems = ["Fall","Summer","Spring"]
+  end
+
+  def editworkshop
+    @wsp = Workshop.find_by(id: editworkshop_params[:id])
+    @wsp.name = editworkshop_params[:name]
+    @wsp.year = editworkshop_params[:year]
+    @wsp.semester = editworkshop_params[:semester]
+    @wsp.save
+    redirect_to admin_workshops_path
+  end
+
   private
   
   def workshop_params
@@ -57,6 +90,10 @@ class AdminController < ApplicationController
 
   def student_params
     params.permit(:workshop_id , :unmid )
+  end
+
+  def editworkshop_params
+    params.permit(:id,:year,:semester,:name)
   end
 
 end

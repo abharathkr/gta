@@ -12,9 +12,16 @@ class StudentsController < ApplicationController
   def show
   end
 
+  def search
+    @search_student = Student.find_by(unmid: params[:search])
+    @student = Student.new
+    @workshopnames = Workshop.pluck(:name)
+  end
+
   # GET /students/new
   def new
     @student = Student.new
+    @workshopnames = Workshop.pluck(:name)
   end
 
   # GET /students/1/edit
@@ -26,9 +33,15 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student.issued = false
+    @studentcourses = Studentcourse.new(student_courses_params)
+    @studentworkshops = Studentworkshop.new(studentworkshops_params)
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        @studentcourses.student_id = @student.id
+        @studentcourses.save
+        @studentworkshops.student_id = @student.id
+        @studentworkshops.save
+        format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -61,6 +74,23 @@ class StudentsController < ApplicationController
     end
   end
 
+  def attendance
+    @stdid = params[:student_id]    
+  end
+
+  def attendances
+    @student_id = params[:student_id]
+    @studentworkshops = Studentworkshop.where(:student_id => params[:student_id])
+  end
+
+  def studentworkshops
+    @studentworkshop = Studentworkshop.create(studentworkshops_params)
+    redirect_to students_attendances_path(:student_id => studentworkshops_params[:student_id])
+  end
+
+  def applicationfinished
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
@@ -69,6 +99,15 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:unmid, :email, :name, :file1)
+      params.permit(:unmid, :email, :name)
+    end
+
+    def student_courses_params
+      params.permit(:course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
+    end
+      #params.permit(:unmid, :email, :name, :course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
+
+    def studentworkshops_params
+      params.permit(:y1,:s1,:n1,:y2,:s2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
     end
 end

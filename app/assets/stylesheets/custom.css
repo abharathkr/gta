@@ -58,3 +58,32 @@
         transform: translate(0px,0px);
     }
 }
+
+/*************************************************/
+.searchs {
+    background-color: #e6fff3;
+}
+
+#cont1 , #cont2 {
+    border-style: groove;
+    border-radius: 15px;
+}
+
+#cont1 {
+    padding-bottom: 15px;
+}
+
+.navbar-inverse .navbar-nav>li>a , .navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.cont {
+    border-style: groove;
+    border-radius: 15px;
+    padding-bottom: 15px;
+}
+
+.para {
+    border-style: groove;
+    border-radius: 15px;
+}

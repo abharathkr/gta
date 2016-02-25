@@ -1,0 +1,28 @@
+<% if @studentworkshops %>
+
+	<% @studentworkshops.each do |sw| %>
+	<tr>
+	    <td><%= sw.year %></td>
+	    <td><%= sw.semester %></td>
+	    <td><%= sw.name %></td>
+	</tr></br>
+	<% end %>
+
+<% else %>
+	<p> Add workshops you attended</p>
+
+<% end %>
+
+<%= form_tag('/students/studentworkshops', multipart: true, method: :post) do %>
+
+<%= select_tag "year", options_for_select( 2010.. 8.years.from_now.year) %>
+<%= select_tag "semester", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe %>
+<%= text_field_tag "name" %>
+<%= hidden_field_tag 'student_id', @student_id %>
+<%= submit_tag "Add" %>
+
+<% end %>
+
+<%= form_tag('/students/applicationfinished', {method: :get}) do %>
+<%= submit_tag 'Finish application' %>
+<% end %>

@@ -1,0 +1,9 @@
+<h2>Edit workshop</h2>
+<%= form_tag('/admin/editworkshop', multipart: true, method: :put) do %>
+
+<%= select_tag "year", options_for_select( 2010.. 800.years.from_now.year, @workshop.year) %>
+<%= select_tag "semester", options_for_select( @sems , @workshop.semester) %>
+<%= text_field_tag :name, @workshop.name %>
+<%= hidden_field_tag :id , @workshop.id %>
+<%= submit_tag "Submit" %>
+<% end %>

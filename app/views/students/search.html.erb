@@ -1,0 +1,15 @@
+<div class="section">
+<div class="container cont">
+<div class="col-md-12">
+	<div class="row">		
+		<% if @search_student %>
+				<p><strong> You have requested for the certificate. Please mail to gpa@unm.edu to know about the status</strong></p>
+		<% else %>
+			<p class="para"> You have not requested for the certificate. Please request below</p>
+			<h3>New Student</h3>
+			<%= render 'form' %>
+		<% end %>
+	</div>
+</div>
+</div>
+</div>

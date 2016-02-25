@@ -1,4 +1,5 @@
-<%= form_for @student, html: {multipart: true} do |f| %>
+
+<%= form_tag(students_path, multipart: true, method: :post) do %>
   <% if @student.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
@@ -11,36 +12,136 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="field form-group col-xs-5">
-      <%= f.label :unmid %><br>
-      <%= f.number_field :unmid, class: "form-control" %>
+  <div class="field form-group col-md-3">
+    <div class="row">
+      <p><strong>UNM ID</strong></p>
+      <%= number_field_tag :unmid, nil, :required => true, :class => "form-control" %>
     </div>
-  </div>
   
+    <br>
+    <div class="row">
+      <p><strong>Email</strong></p>
+      <%=  text_field_tag :email, nil, :required => true , class: "form-control" %>
+    </div>
+  
+    <br>
+    <div class="row">
+      <p><strong>Name</strong></p>
+      <%=  text_field_tag :name, nil, :required => true , class: "form-control"  %>
+    </div>
+  </div>
 
-  <div class="row">
-    <div class="field form-group col-xs-5">
-      <%= f.label :email %><br>
-      <%= f.text_field :email, class: "form-control" %>
+  <div class="field form-group col-md-8 col-md-offset-1 ">
+    <div class="row">
+      <p><strong>Course 1</strong></p>
+      <div class="col-md-2">
+        <%= select_tag "course1year", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+      </div>
+      <div class="col-md-2">
+        <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+      </div>
+      <div class="col-md-8">
+        <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
+        <span class="badge badge-important" ></span>
+        <input  type="file" 
+            style="display:none; width: 1px;" 
+            id='course1' name='course1'  
+            onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <p><strong>Course 2</strong></p>
+      <div class="col-md-2">
+        <%= select_tag "course1year", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+      </div>
+      <div class="col-md-2">
+        <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+      </div>
+      <div class="col-md-8">
+        <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
+        <span class="badge badge-important" ></span>
+        <input  type="file" 
+            style="display:none; width: 1px;" 
+            id='course2' name='course2'  
+            onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <p><strong>Teaching Experience</strong></p>
+      <div class="col-md-12">
+        <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
+        <span class="badge badge-important" ></span>
+        <input  type="file" 
+            style="display:none; width: 1px;" 
+            id='teachexp' name='teachexp'  
+            onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" >
+    <div class="row">
+    <div class="col-md-10" style="padding-top:20px">
+    <p><strong>Workshops Attended</strong></p>
+    <div class="col-md-2">
+    <%= select_tag "y1", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    </div>
+    <div class="col-md-2">
+    <%= select_tag "s1", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+    </div>
+    <div class="col-md-4">
+    <%= select_tag "n1", options_for_select( @workshopnames ) , :class => 'form-control'%>
+    </div>
+    </div>
+    <br>
+
+    <div class="col-md-10">
+    <div class="col-md-2">
+    <%= select_tag "y2", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    </div>
+    <div class="col-md-2">
+    <%= select_tag "s2", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+    </div>
+    <div class="col-md-4">
+    <%= select_tag "n2", options_for_select( @workshopnames ) , :class => 'form-control'%>
+    </div>
+    </div>
+    <br>
+
+    <div class="col-md-10">
+    <div class="col-md-2">
+    <%= select_tag "y3", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    </div>
+    <div class="col-md-2">
+    <%= select_tag "s3", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+    </div>
+    <div class="col-md-4">
+    <%= select_tag "n3", options_for_select( @workshopnames ) , :class => 'form-control'%>
+    </div>
+    </div>
+    <br>
+
+    <div class="col-md-10">
+    <div class="col-md-2">
+    <%= select_tag "y4", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    </div>
+    <div class="col-md-2">
+    <%= select_tag "s4", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+    </div>
+    <div class="col-md-4">
+    <%= select_tag "n4", options_for_select( @workshopnames ) , :class => 'form-control'%>
+    </div>
+    </div>
+    <br>
+
     </div>
   </div>
 
   <div class="row">
-    <div class="field form-group col-xs-5">
-      <%= f.label :name %><br>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
+  <div class="col-md-5 actions">
+    <%= submit_tag "Submit", :name => nil, class: "btn btn-success" %>
   </div>
-
-  <!--div class="row">
-    <div class="field form-group col-xs-5">
-      <%= f.label :file1 %><br>
-      <%= f.file_field :file1, class: "form-control" %>
-    </div>
-  </div-->
-
-  <div class="actions">
-    <%= f.submit %>
   </div>
 <% end %>
