@@ -2,7 +2,12 @@ class AdminController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-  	@students = Student.all
+  	@pendingstudents = Student.where(issued: 'f')
+    @issuedstudents = Student.where(issued: 't').order("id desc").limit(20)
+  end
+
+  def list
+    @students = Student.where(issued: 't')
   end
 
   def move
@@ -20,7 +25,7 @@ class AdminController < ApplicationController
   end
 
   def workshops
-  	@workshops = Workshop.all
+  	@workshops = Workshop.all.order("year desc")
   end
 
   def addworkshop
@@ -89,7 +94,7 @@ class AdminController < ApplicationController
   end
 
   def student_params
-    params.permit(:workshop_id , :unmid )
+    params.permit(:workshop_id, :unmid, :name, :email )
   end
 
   def editworkshop_params

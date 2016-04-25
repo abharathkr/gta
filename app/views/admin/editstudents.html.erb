@@ -1,18 +1,73 @@
-<h2>Edit students</h2>
+<div class="container">
+<h2>Add students</h2>
 <tr>
 	<td><%= @ws.name %></td>
 	<td><%= @ws.year %></td>
 	<td><%= @ws.semester %></td>
-</tr>
+</tr><br>
 
 <% @currentstudents.each do |cs| %>
 <tr>
 	<td><%= cs.unmid %></td>
-</tr>
+  <td><%= cs.name %></td>
+  <td><%= cs.email %></td>
+</tr><br>
 <% end %>
 
+<div class="field form-group col-md-3">
 <%= form_tag('/admin/addstudent', multipart: true, method: :post) do %>
-<%= number_field_tag :unmid %>
+    <div class="row">
+      <p><strong>UNM ID</strong></p>
+      <%= number_field_tag :unmid, nil, :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", :class => "form-control" %>
+    </div>
+    <div class="row">
+      <p><strong>Name</strong></p>
+      <%=  text_field_tag :name, nil, :required => true , class: "form-control" %>
+    </div>
+        <div class="row">
+      <p><strong>Email</strong></p>
+      <%=  text_field_tag :email, nil, :required => true , class: "form-control" %>
+    </div>
 <%= hidden_field_tag 'workshop_id', @ws.id %>
-<%= submit_tag "Submit" %>
+  <br>
+  <div class="row">
+  <div class="col-md-5 actions">
+    <%= submit_tag "Submit", :name => nil, class: "btn btn-success" %>
+  </div>
+  </div>
 <% end %>
+</div>
+</div>
+
+<script>
+(function(window, location) {
+  history.replaceState(null, document.title, location.pathname+"#!/history");
+  history.pushState(null, document.title, location.pathname);
+
+  window.addEventListener("popstate", function() {
+    if(location.hash === "#!/history") {
+    history.replaceState(null, document.title, location.pathname);
+    setTimeout(function(){
+      location.replace("<%= admin_workshops_path %>");
+    },0);
+    }
+  }, false);
+}(window, location));
+</script>
+<script>
+  function maxLengthCheck(object) {
+    if (object.value.length > object.max.length)
+      object.value = object.value.slice(0, object.max.length)
+  }
+    
+  function isNumeric (evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+</script>

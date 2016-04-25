@@ -20,6 +20,9 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
+    if admin_signed_in?
+      redirect_to admin_index_path
+    end
     @student = Student.new
     @workshopnames = Workshop.pluck(:name)
   end

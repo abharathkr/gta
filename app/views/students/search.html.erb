@@ -5,11 +5,17 @@
 		<% if @search_student %>
 				<p><strong> You have requested for the certificate. Please mail to gpa@unm.edu to know about the status</strong></p>
 		<% else %>
-			<p class="para"> You have not requested for the certificate. Please request below</p>
-			<h3>New Student</h3>
+			<h3 class="para"> You have not requested for the certificate. Please request below</h3></br>
+			
 			<%= render 'form' %>
 		<% end %>
 	</div>
 </div>
 </div>
 </div>
+<style type="text/css">
+.para {
+    border-style: none;
+    border-radius: none;
+}
+</style>>

@@ -7,7 +7,7 @@
 		</div>
 		<%= form_tag('/students/search', :method => 'get') do %>
 		<div class="col-xs-6">
-		<%= number_field_tag :search, params[:search], class: "form-control" %>
+		<%= number_field_tag :search, params[:search], class: "form-control", :required => true %>
 		</div>
 		<%= submit_tag "Submit", :name => nil, class: "btn btn-success" %>
 		<% end %>

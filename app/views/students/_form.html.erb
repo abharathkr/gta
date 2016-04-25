@@ -15,7 +15,7 @@
   <div class="field form-group col-md-3">
     <div class="row">
       <p><strong>UNM ID</strong></p>
-      <%= number_field_tag :unmid, nil, :required => true, :class => "form-control" %>
+      <%= number_field_tag :unmid, nil, :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", :class => "form-control" %>
     </div>
   
     <br>
@@ -35,15 +35,15 @@
     <div class="row">
       <p><strong>Course 1</strong></p>
       <div class="col-md-2">
-        <%= select_tag "course1year", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+        <%= select_tag "course1year", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
       <div class="col-md-8">
-        <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
+        <input class="btn btn-primary" required="Please attach this file" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
-        <input  type="file" 
+        <input  type="file" required="required" 
             style="display:none; width: 1px;" 
             id='course1' name='course1'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
@@ -53,7 +53,7 @@
     <div class="row">
       <p><strong>Course 2</strong></p>
       <div class="col-md-2">
-        <%= select_tag "course1year", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+        <%= select_tag "course1year", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -61,7 +61,7 @@
       <div class="col-md-8">
         <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
-        <input  type="file" 
+        <input  type="file" required 
             style="display:none; width: 1px;" 
             id='course2' name='course2'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
@@ -73,7 +73,7 @@
       <div class="col-md-12">
         <input class="btn btn-primary" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
-        <input  type="file" 
+        <input  type="file" required="Please attach this file" 
             style="display:none; width: 1px;" 
             id='teachexp' name='teachexp'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
@@ -86,7 +86,7 @@
     <div class="col-md-10" style="padding-top:20px">
     <p><strong>Workshops Attended</strong></p>
     <div class="col-md-2">
-    <%= select_tag "y1", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    <%= select_tag "y1", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s1", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -99,7 +99,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y2", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    <%= select_tag "y2", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s2", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -112,7 +112,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y3", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    <%= select_tag "y3", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s3", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -125,7 +125,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y4", options_for_select( 2010.. 8.years.from_now.year), :class => 'form-control' %>
+    <%= select_tag "y4", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s4", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -145,3 +145,21 @@
   </div>
   </div>
 <% end %>
+
+<script>
+  function maxLengthCheck(object) {
+    if (object.value.length > object.max.length)
+      object.value = object.value.slice(0, object.max.length)
+  }
+    
+  function isNumeric (evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+</script>

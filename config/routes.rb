@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'admin/index'
 
+  get 'admin/list'
+
   get 'admin/move'
 
   get 'admin/moveback'

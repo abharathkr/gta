@@ -1,24 +1,42 @@
-
-<h2>Workshops</h2>
-
-<div id="workshops">
-<% @workshops.each do |w| %>
-<tr>
-    <td><%= w.year %></td>
-    <td><%= w.semester %></td>
-    <td><%= w.name %></td>
-    <td><%= link_to 'Add students to this workshop', admin_editstudents_path(:id => w.id ), class: "btn btn-default" %></td>
-    <td><%= link_to 'Delete this workshop', admin_deleteworkshop_path(:id => w.id ),:method => :delete, class: "btn btn-default",data: { confirm: "Are you sure?" } %></td>
-    <td><%= link_to 'Edit this workshop', admin_geditworkshop_path(:id => w.id ),:method => :get, class: "btn btn-default" ,data: { confirm: "Are you sure?" }%></td>
-</tr></br>
-<% end %>
-</div>
+<div class="container">
 
 <h2>New workshop</h2>
 <%= form_tag('/admin/addworkshop', multipart: true, method: :post) do %>
 
-<%= select_tag "year", options_for_select( 2010.. 800.years.from_now.year) %>
+<%= select_tag "year", options_for_select( 2015.. DateTime.now.year+8 ) %>
 <%= select_tag "semester", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe %>
 <%= text_field_tag :name %>
 <%= submit_tag "Submit" %>
 <% end %>
+
+<h2>Workshops</h2>
+<div id="workshops">
+	<% @workshops.each do |w| %>
+	<tr>
+	    <td><%= w.year %></td>
+	    <td><%= w.semester %></td>
+	    <td><%= w.name %></td>
+	    <td><%= link_to 'Add students', admin_editstudents_path(:id => w.id ), class: "btn btn-default" %></td>
+	    <td><%= link_to 'Delete Workshop', admin_deleteworkshop_path(:id => w.id ),:method => :delete, class: "btn btn-default",data: { confirm: "Are you sure you want to delete this workshop?" } %></td>
+	    <td><%= link_to 'Edit Workshop', admin_geditworkshop_path(:id => w.id ),:method => :get, class: "btn btn-default" ,data: { confirm: "Are you sure you want to edit this workshop?" }%></td>
+	</tr></br>
+	<% end %>
+</div>
+
+</div>
+
+<script>
+(function(window, location) {
+  history.replaceState(null, document.title, location.pathname+"#!/history");
+  history.pushState(null, document.title, location.pathname);
+
+  window.addEventListener("popstate", function() {
+    if(location.hash === "#!/history") {
+    history.replaceState(null, document.title, location.pathname);
+    setTimeout(function(){
+      location.replace("<%= admin_index_path %>");
+    },0);
+    }
+  }, false);
+}(window, location));
+</script>

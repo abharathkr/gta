@@ -1,0 +1,33 @@
+<div class="section">
+    <div class="container cont">
+        <div class="row">
+            <div class="col-md-6">
+            <h3>Issued list</h3>
+                <% @students.each do |s| %>
+                <tr>
+                    <td><%= s.unmid %></td>
+                    <td><%= s.email %></td>
+                    <td><%= s.name %></td>
+                    <td><%= link_to "Move to waiting section" , admin_moveback_path(:id => s.id) , class: "btn btn-default", data: { confirm: "Are you sure you want to move this to pending section?" }%></td>
+                    <td><%= link_to "Delete" , admin_deletestudent_path(:id => s.id) ,:method => :delete, class: "btn btn-default", data: { confirm: "Are you sure you want to delete this?" }%></td>
+                </tr><br>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+(function(window, location) {
+  history.replaceState(null, document.title, location.pathname+"#!/history");
+  history.pushState(null, document.title, location.pathname);
+
+  window.addEventListener("popstate", function() {
+    if(location.hash === "#!/history") {
+    history.replaceState(null, document.title, location.pathname);
+    setTimeout(function(){
+      location.replace("<%= admin_index_path %>");
+    },0);
+    }
+  }, false);
+}(window, location));
+</script>
