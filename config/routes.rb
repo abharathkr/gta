@@ -11,9 +11,15 @@ Rails.application.routes.draw do
 
   delete 'admin/deleteworkshop'
 
+  delete 'admin/deleteworkstudent'
+
   get 'admin/geditworkshop'
 
+  get 'admin/geditworkstudent'
+
   put 'admin/editworkshop'
+
+  put 'admin/editworkstudent'
 
   get 'admin/workshops'
 
@@ -23,7 +29,7 @@ Rails.application.routes.draw do
 
   post 'admin/addstudent'
 
-  get 'admin/editstudents'
+  get 'admin/workstudentslist'
 
   get 'students/attendance'
 

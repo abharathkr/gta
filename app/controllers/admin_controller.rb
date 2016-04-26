@@ -46,7 +46,7 @@ class AdminController < ApplicationController
   	@students = WorkshopsStudent.all
   end
 
-  def editstudents
+  def workstudentslist
   	@ws_id = params[:id]
   	@ws = Workshop.find_by(id: @ws_id)
   	@currentstudents = WorkshopsStudent.where(workshop_id: params[:id])
@@ -87,6 +87,26 @@ class AdminController < ApplicationController
     redirect_to admin_workshops_path
   end
 
+  def geditworkstudent
+    @workstudent = WorkshopsStudent.find_by(id: params[:id])
+    @worksid = params[:wsid]
+  end
+
+  def editworkstudent
+    @ws = WorkshopsStudent.find_by(id: editworkstudent_params[:id])
+    @ws.name = editworkstudent_params[:name]
+    @ws.email = editworkstudent_params[:email]
+    @ws.unmid = editworkstudent_params[:unmid]
+    @ws.save
+    redirect_to admin_workstudentslist_path(:id => editworkstudent_params[:wsid])
+  end
+
+  def deleteworkstudent
+    @stu = WorkshopsStudent.find_by(id: params["id"])
+    @stu.destroy
+    redirect_to admin_workstudentslist_path(:id => params["wsid"])
+  end
+
   private
   
   def workshop_params
@@ -99,6 +119,10 @@ class AdminController < ApplicationController
 
   def editworkshop_params
     params.permit(:id,:year,:semester,:name)
+  end
+
+  def editworkstudent_params
+    params.permit(:id,:unmid,:email,:name,:wsid)
   end
 
 end

@@ -1,0 +1,26 @@
+<h2>Edit student</h2>
+
+<div class="field form-group col-md-3">
+<%= form_tag('/admin/editworkstudent', multipart: true, method: :put) do %>
+    <div class="row">
+      <p><strong>UNM ID</strong></p>
+      <%= number_field_tag :unmid, value = @workstudent.unmid, :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", :class => "form-control" %>
+    </div>
+    <div class="row">
+      <p><strong>Name</strong></p>
+      <%=  text_field_tag :name, value = @workstudent.name, :required => true , class: "form-control" %>
+    </div>
+        <div class="row">
+      <p><strong>Email</strong></p>
+      <%=  text_field_tag :email, value = @workstudent.email, :required => true , type: "email", class: "form-control" %>
+    </div>
+    <%= hidden_field_tag :id , @workstudent.id %>
+    <%= hidden_field_tag :wsid , @worksid %>
+  <br>
+  <div class="row">
+  <div class="col-md-5 actions">
+    <%= submit_tag "Submit", :name => nil, class: "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+</div>

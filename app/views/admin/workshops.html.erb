@@ -16,7 +16,7 @@
 	    <td><%= w.year %></td>
 	    <td><%= w.semester %></td>
 	    <td><%= w.name %></td>
-	    <td><%= link_to 'Add students', admin_editstudents_path(:id => w.id ), class: "btn btn-default" %></td>
+	    <td><%= link_to 'List students', admin_workstudentslist_path(:id => w.id ), class: "btn btn-default" %></td>
 	    <td><%= link_to 'Delete Workshop', admin_deleteworkshop_path(:id => w.id ),:method => :delete, class: "btn btn-default",data: { confirm: "Are you sure you want to delete this workshop?" } %></td>
 	    <td><%= link_to 'Edit Workshop', admin_geditworkshop_path(:id => w.id ),:method => :get, class: "btn btn-default" ,data: { confirm: "Are you sure you want to edit this workshop?" }%></td>
 	</tr></br>

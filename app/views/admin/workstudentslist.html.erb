@@ -1,5 +1,5 @@
 <div class="container">
-<h2>Add students</h2>
+<h2>Students</h2>
 <tr>
 	<td><%= @ws.name %></td>
 	<td><%= @ws.year %></td>
@@ -11,6 +11,8 @@
 	<td><%= cs.unmid %></td>
   <td><%= cs.name %></td>
   <td><%= cs.email %></td>
+  <td><%= link_to 'Edit Student', admin_geditworkstudent_path(:id => cs.id, :wsid => @ws.id ),:method => :get, class: "btn btn-default" ,data: { confirm: "Are you sure you want to edit this student?" }%></td>
+  <td><%= link_to 'Delete Student', admin_deleteworkstudent_path(:id => cs.id, :wsid => @ws.id ),:method => :delete, class: "btn btn-default",data: { confirm: "Are you sure you want to delete this student?" } %></td>
 </tr><br>
 <% end %>
 
@@ -26,7 +28,7 @@
     </div>
         <div class="row">
       <p><strong>Email</strong></p>
-      <%=  text_field_tag :email, nil, :required => true , class: "form-control" %>
+      <%=  text_field_tag :email, nil, :required => true , type: "email", class: "form-control" %>
     </div>
 <%= hidden_field_tag 'workshop_id', @ws.id %>
   <br>

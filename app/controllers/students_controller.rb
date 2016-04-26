@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
   def search
     @search_student = Student.find_by(unmid: params[:search])
     @student = Student.new
-    @workshopnames = Workshop.pluck(:name)
+    @workshopnames = Workshop.pluck(:name, :year, :semester)
   end
 
   # GET /students/new
@@ -111,6 +111,6 @@ class StudentsController < ApplicationController
       #params.permit(:unmid, :email, :name, :course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
 
     def studentworkshops_params
-      params.permit(:y1,:s1,:n1,:y2,:s2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
+      params.permit(:y1,:s1,:n1,:n2,:s2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
     end
 end
