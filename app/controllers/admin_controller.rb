@@ -58,7 +58,7 @@ class AdminController < ApplicationController
   	else
   		flash[:notice] = "Student not created"
   	end
-  	redirect_to admin_editstudents_path(:id => @student.workshop_id)
+  	redirect_to admin_workstudentslist_path(:id => @student.workshop_id)
   end
 
   def deletestudent
