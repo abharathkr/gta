@@ -35,17 +35,17 @@
     <div class="row">
       <p><strong>Course 1</strong></p>
       <div class="col-md-2">
-        <%= select_tag "course1year", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+        <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
-        <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+        <%= select_tag "studentcourse[course1sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
       <div class="col-md-8">
         <input class="btn btn-primary req" required="Please attach this file" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
         <input class="req" type="file" required="required"
             style="display:none; width: 1px;" 
-            id='course1' name='course1'  
+            id='course1' name='studentcourse[course1]'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
       </div>
     </div>
@@ -53,17 +53,17 @@
     <div class="row">
       <p><strong>Course 2</strong></p>
       <div class="col-md-2">
-        <%= select_tag "course1year", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+        <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
-        <%= select_tag "course1sem", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+        <%= select_tag "studentcourse[course1sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
       <div class="col-md-8">
         <input class="btn btn-primary req" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
         <input class="req" type="file" required="required"
             style="display:none; width: 1px;" 
-            id='course2' name='course2'  
+            id='course2' name='studentcourse[course2]'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
       </div>
     </div>
@@ -75,7 +75,7 @@
         <span class="badge badge-important" ></span>
         <input class="req" type="file" required="required" 
             style="display:none; width: 1px;" 
-            id='teachexp' name='teachexp'  
+            id='teachexp' name='studentcourse[teachexp]'  
             onchange="$(this).parent().find('span').html($(this).val().replace('C:\\fakepath\\', ''))"  /> 
       </div>
     </div>

@@ -34,9 +34,10 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
+    @ss = 0 #using this variable for sending file path after the file is saved
     @student = Student.new(student_params)
     @student.issued = false
-    @studentcourses = Studentcourse.new(student_courses_params)
+    @studentcourses = Studentcourse.new(student_courses_params(:studentcourse))
     @studentworkshops = Studentworkshop.new(studentworkshops_params)
     respond_to do |format|
       if @student.save
@@ -44,12 +45,25 @@ class StudentsController < ApplicationController
         @studentcourses.save
         @studentworkshops.student_id = @student.id
         @studentworkshops.save
+        @ss = 1
+        print "hello"
+        print @studentcourses.course2.path
+        print "hello"
         format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
+    end
+    if @ss == 1
+      cid = @studentcourses.id
+      @sss = Studentcourse.find_by(id: cid)
+      #AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses.course1.path).deliver_later
+      print "hello"
+      print cid
+      print @studentcourses.course2.path
+      print "hello"
     end
   end
 
@@ -106,11 +120,12 @@ class StudentsController < ApplicationController
     end
 
     def student_courses_params
-      params.permit(:course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
+      params.require(:studentcourse).permit(:course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
     end
       #params.permit(:unmid, :email, :name, :course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
 
     def studentworkshops_params
       params.permit(:y1,:s1,:n1,:n2,:s2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
     end
+
 end
