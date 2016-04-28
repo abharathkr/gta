@@ -66,11 +66,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'gradta.herokuapp.com' }  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:          'smtp.mailgun.org',
+    address:          'smtp.gmail.com',
     port:             587,
     domain:           'gradta.herokuapp.com',
-    user_name:        'postmaster@app858b39fd89b5439085683a8fedbd7d63.mailgun.org',
-    password:         'd10fc981414a35c72afe9be5b023d285',
+    user_name:        'bharathcapgemini@gmail.com',
+    password:         '.27abkr478',
     authentication:   'plain',
     enable_starttls_auto: true 
   }
