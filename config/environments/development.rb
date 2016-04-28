@@ -18,8 +18,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:          'smtp.gmail.com',
-    port:             2525,
-    domain:           'localhost',
+    port:             587,
+    domain:           'gradta.herokuapp.com',
     user_name:        'bharathcapgemini@gmail.com',
     password:         '.27abkr478',
     authentication:   'plain',
