@@ -49,16 +49,25 @@ class AdminController < ApplicationController
   def workstudentslist
   	@ws_id = params[:id]
   	@ws = Workshop.find_by(id: @ws_id)
-  	@currentstudents = WorkshopsStudent.where(workshop_id: params[:id])
+  	@currentstudents = WorkshopsStudent.where(workshop_id: params[:id]).order("id desc")
   end
 
   def addstudent
-  	if @student = WorkshopsStudent.create(student_params)
-  		flash[:notice] = "Student created"
-  	else
-  		flash[:notice] = "Student not created"
-  	end
-  	redirect_to admin_workstudentslist_path(:id => @student.workshop_id)
+    if WorkshopsStudent.exists?(:workshop_id => student_params[:workshop_id],:unmid => student_params[:unmid])
+      flash.now[:error] = "You already added this student to this worksop. Please add a new one"
+      @ws_id = student_params[:workshop_id]
+      @ws = Workshop.find_by(id: @ws_id)
+      @currentstudents = WorkshopsStudent.where(workshop_id: student_params[:workshop_id]).order("id desc")
+      #redirect_to admin_workstudentslist_path(:id => student_params[:workshop_id])
+      render action: "workstudentslist"
+    else 
+    	if @student = WorkshopsStudent.create(student_params)
+    		flash[:notice] = "Student created"
+    	else
+    		flash[:notice] = "Student not created"
+    	end
+    	redirect_to admin_workstudentslist_path(:id => @student.workshop_id)
+    end
   end
 
   def deletestudent

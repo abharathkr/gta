@@ -1,11 +1,14 @@
 <div class="container">
-<h2>Students</h2>
+<h4>Students</h4>
 <tr>
 	<td><%= @ws.name %></td>
 	<td><%= @ws.year %></td>
 	<td><%= @ws.semester %></td>
 </tr><br>
 
+<% if @currentstudents.size == 0 %>
+<p>There are no students in this workshop. You can add the students by using the form below</p>
+<% else %>
 <% @currentstudents.each do |cs| %>
 <tr>
 	<td><%= cs.unmid %></td>
@@ -15,7 +18,11 @@
   <td><%= link_to 'Delete Student', admin_deleteworkstudent_path(:id => cs.id, :wsid => @ws.id ),:method => :delete, class: "btn btn-default",data: { confirm: "Are you sure you want to delete this student?" } %></td>
 </tr><br>
 <% end %>
-
+<% end %>
+<h4>Add a student into this workshop</h4>
+<% if flash[:error] %>
+<h4 class="text-danger"><%= flash[:error] %></h4>
+<% end %>
 <div class="field form-group col-md-3">
 <%= form_tag('/admin/addstudent', multipart: true, method: :post) do %>
     <div class="row">

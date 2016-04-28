@@ -34,36 +34,31 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @ss = 0 #using this variable for sending file path after the file is saved
-    @student = Student.new(student_params)
-    @student.issued = false
-    @studentcourses = Studentcourse.new(student_courses_params(:studentcourse))
-    @studentworkshops = Studentworkshop.new(studentworkshops_params)
-    respond_to do |format|
-      if @student.save
-        @studentcourses.student_id = @student.id
-        @studentcourses.save
-        @studentworkshops.student_id = @student.id
-        @studentworkshops.save
-        @ss = 1
-        print "hello"
-        print @studentcourses.course2.path
-        print "hello"
-        format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+    @studentcourses = Studentcourse.new(student_courses_params)
+    if Student.exists?(:unmid => student_params[:unmid])
+      flash.now[:error] = "You already submitted the application. If you have any queries please mail to gta@unm.edu"
+      render action: "new"
+    elsif ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course1_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course2_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.teachexp_content_type)
+      @student = Student.new(student_params)
+      @student.issued = false
+      @studentworkshops = Studentworkshop.new(studentworkshops_params)
+      respond_to do |format|
+        if @student.save
+          @studentcourses.student_id = @student.id
+          @studentcourses.save
+          @studentworkshops.student_id = @student.id
+          @studentworkshops.save
+          AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses,@student).deliver_later
+          format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
+          format.json { render :show, status: :created, location: @student }
+        else
+          format.html { render :new }
+          format.json { render json: @student.errors, status: :unprocessable_entity }
+        end
       end
-    end
-    if @ss == 1
-      cid = @studentcourses.id
-      @sss = Studentcourse.find_by(id: cid)
-      #AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses.course1.path).deliver_later
-      print "hello"
-      print cid
-      print @studentcourses.course2.path
-      print "hello"
+    else
+      flash.now[:error] = "Please attach pdf or jpg or png files only"
+      render action: "new"
     end
   end
 
@@ -125,7 +120,7 @@ class StudentsController < ApplicationController
       #params.permit(:unmid, :email, :name, :course1year, :course1sem, :course2year, :course2sem, :course1, :course2, :teachexp)
 
     def studentworkshops_params
-      params.permit(:y1,:s1,:n1,:n2,:s2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
+      params.permit(:y1,:s1,:n1,:y2,:s2,:n2,:n2,:y3,:s3,:n3,:y4,:s4,:n4)
     end
 
 end

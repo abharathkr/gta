@@ -3,19 +3,30 @@
         <div class="row">
             <div class="col-md-6">
             <h3>Waiting list</h3>
+                <% if @pendingstudents.size == 0 %>
+                <p>There are no students in the waiting list</p>
+                <% else %>
                 <% @pendingstudents.each do |s| %>
                 <tr>
                     <td><%= s.unmid %></td>
                     <td><%= s.email %></td>
                     <td><%= s.name %></td>
+                    <% if WorkshopsStudent.select(:workshop_id).where(:unmid => s.unmid).size >= 4 %>
                     <td><%= link_to "Move to issued section" , admin_move_path(:id => s.id) , class: "btn btn-default", data: { confirm: "Are you sure?" }%></td>
+                    <% else %>
+                    <p>This student didnt attend at least 4 workshops</p>
+                    <% end %>
                     <td><%= link_to "Delete" , admin_deletestudent_path(:id => s.id) ,:method => :delete, class: "btn btn-default", data: { confirm: "Are you sure?" }%></td>
 
                 </tr><br>
                 <% end %>
+                <% end %>
             </div>
             <div class="col-md-6">
                 <h3>Issued list</h3>
+                <% if @issuedstudents.size == 0 %>
+                <p>There are no students in the Issued list</p>
+                <% else %>                
                 <% @issuedstudents.each do |s| %>
                 <tr>
                     <td><%= s.unmid %></td>
@@ -24,6 +35,7 @@
                     <td><%= link_to "Move back to Waiting section" , admin_moveback_path(:id => s.id) , class: "btn btn-default", data: { confirm: "Are you sure?" }%></td>
                     <td><%= link_to "Delete" , admin_deletestudent_path(:id => s.id) ,:method => :delete, class: "btn btn-default", data: { confirm: "Are you sure?" }%></td>
                 </tr><br>
+                <% end %>
                 <% end %>
             </div>
         </div>

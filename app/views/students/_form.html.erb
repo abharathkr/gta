@@ -1,17 +1,5 @@
 
 <%= form_tag(students_path, multipart: true, method: :post) do %>
-  <% if @student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
-
-      <ul>
-      <% @student.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="field form-group col-md-3">
     <div class="row">
       <p><strong>UNM ID</strong></p>
@@ -21,7 +9,7 @@
     <br>
     <div class="row">
       <p><strong>Email</strong></p>
-      <%=  text_field_tag :email, nil, :required => true , class: "form-control" %>
+      <%=  email_field_tag :email, nil, :required => true , class: "form-control" %>
     </div>
   
     <br>
@@ -32,6 +20,7 @@
   </div>
 
   <div class="field form-group col-md-8 col-md-offset-1 ">
+    <h4 class="text-primary">Please upload pdf or png or jpg or jpeg files only</h4>
     <div class="row">
       <p><strong>Course 1</strong></p>
       <div class="col-md-2">
@@ -53,10 +42,10 @@
     <div class="row">
       <p><strong>Course 2</strong></p>
       <div class="col-md-2">
-        <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+        <%= select_tag "studentcourse[course2year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
-        <%= select_tag "studentcourse[course1sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
+        <%= select_tag "studentcourse[course2sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
       <div class="col-md-8">
         <input class="btn btn-primary req" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
@@ -141,7 +130,7 @@
 
   <div class="row">
   <div class="col-md-5 actions">
-    <%= submit_tag "Submit", :name => nil, class: "btn btn-success" %>
+    <%= submit_tag "Submit", :name => nil, :onclick => "wait()", class: "btn btn-success" %>
   </div>
   </div>
 <% end %>
@@ -179,3 +168,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 })
 </script>
+<!--script type="text/javascript">
+  function wait() {
+    $.blockUI({ message: '<h1> Just a moment...</h1>' });
+  }
+</script-->
