@@ -66,11 +66,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'gradta.herokuapp.com' }  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:          ENV['MAILGUN_SMTP_SERVER'],
-    port:             ENV['MAILGUN_SMTP_PORT'],
+    address:          'smtp.mailgun.org',
+    port:             587,
     domain:           'gradta.herokuapp.com',
-    user_name:        ENV['MAILGUN_SMTP_LOGIN'],
-    password:         ENV['MAILGUN_SMTP_PASSWORD'],
+    user_name:        'postmaster@app858b39fd89b5439085683a8fedbd7d63.mailgun.org',
+    password:         'd10fc981414a35c72afe9be5b023d285',
     authentication:   'plain',
     enable_starttls_auto: true 
   }
