@@ -37,7 +37,7 @@ class StudentsController < ApplicationController
     @studentcourses = Studentcourse.new(student_courses_params)
     if Student.exists?(:unmid => student_params[:unmid])
       flash.now[:error] = "You already submitted the application. If you have any queries please mail to gta@unm.edu"
-      render action: "new"
+      render action: "new"        
     elsif ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course1_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course2_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.teachexp_content_type)
       @student = Student.new(student_params)
       @student.issued = false
@@ -48,7 +48,6 @@ class StudentsController < ApplicationController
           @studentcourses.save
           @studentworkshops.student_id = @student.id
           @studentworkshops.save
-          AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses,@student).deliver_later
           format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
           format.json { render :show, status: :created, location: @student }
         else
@@ -56,6 +55,7 @@ class StudentsController < ApplicationController
           format.json { render json: @student.errors, status: :unprocessable_entity }
         end
       end
+      AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses,@student).deliver_later
     else
       flash.now[:error] = "Please attach pdf or jpg or png files only"
       render action: "new"

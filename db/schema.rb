@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424043218) do
+ActiveRecord::Schema.define(version: 20160428175541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 20160424043218) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "course1s", force: :cascade do |t|
+    t.integer "studentcourse_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
+
+  create_table "course2s", force: :cascade do |t|
+    t.integer "studentcourse_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
+
   create_table "studentcourses", force: :cascade do |t|
     t.integer  "course1year"
     t.string   "course1sem"
@@ -54,6 +66,9 @@ ActiveRecord::Schema.define(version: 20160424043218) do
     t.string   "teachexp_content_type"
     t.integer  "teachexp_file_size"
     t.datetime "teachexp_updated_at"
+    t.binary   "course1"
+    t.binary   "course2"
+    t.binary   "teachexp"
   end
 
   create_table "students", force: :cascade do |t|
@@ -81,6 +96,12 @@ ActiveRecord::Schema.define(version: 20160424043218) do
     t.integer  "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "teachexps", force: :cascade do |t|
+    t.integer "studentcourse_id"
+    t.string  "style"
+    t.binary  "file_contents"
   end
 
   create_table "workshops", force: :cascade do |t|
