@@ -84,5 +84,3 @@ test:
 production:
   <<: *default
   database: gta_production
-  username: postgres
-  password: l
