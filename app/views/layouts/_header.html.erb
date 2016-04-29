@@ -19,7 +19,8 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-3">
           <ul class="nav navbar-nav navbar-right">
           <% if admin_signed_in? %>
-            <li><%= link_to('Home', admin_index_path)%></li>
+            <li><%= link_to('Search for a student', admin_spage_path)%></li>
+            <li><%= link_to('Waiting List', admin_index_path)%></li>
             <li><%= link_to('Issued List', admin_list_path)%></li>
             <li><%= link_to('Workshops', admin_workshops_path)%></li>
             <li><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %></li>

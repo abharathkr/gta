@@ -1,0 +1,34 @@
+<div class="section">
+<div class="container" id="cont1">
+<div class="col-xs-12">
+	<div class="row">
+		<div class="col-xs-12">
+		<h3 class="text-primary">Please enter UNM ID to check for the details of a person:</h3>
+		</div>
+		<%= form_tag('/admin/search', :method => 'get') do %>
+		<div class="col-xs-6">
+		<%= number_field_tag :search, params[:search], :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", class: "form-control" %>
+		</div>
+		<%= submit_tag "Search", :name => nil, class: "btn btn-success" %>
+		<% end %>
+	</div>
+</div>
+</div>
+</div>
+<script>
+  function maxLengthCheck(object) {
+    if (object.value.length > object.max.length)
+      object.value = object.value.slice(0, object.max.length)
+  }
+    
+  function isNumeric (evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode (key);
+    var regex = /[0-9]|\./;
+    if ( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+</script>

@@ -24,7 +24,7 @@
     <div class="row">
       <p><strong>Course 1</strong></p>
       <div class="col-md-2">
-        <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+        <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course1sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -42,7 +42,7 @@
     <div class="row">
       <p><strong>Course 2</strong></p>
       <div class="col-md-2">
-        <%= select_tag "studentcourse[course2year]", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+        <%= select_tag "studentcourse[course2year]", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course2sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -75,7 +75,7 @@
     <div class="col-md-10" style="padding-top:20px">
     <p><strong>Workshops Attended</strong></p>
     <div class="col-md-2">
-    <%= select_tag "y1", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+    <%= select_tag "y1", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s1", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -88,7 +88,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y2", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+    <%= select_tag "y2", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s2", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -101,7 +101,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y3", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+    <%= select_tag "y3", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s3", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -114,7 +114,7 @@
 
     <div class="col-md-10">
     <div class="col-md-2">
-    <%= select_tag "y4", options_for_select( 2015.. DateTime.now.year+8), :class => 'form-control' %>
+    <%= select_tag "y4", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
     </div>
     <div class="col-md-2">
     <%= select_tag "s4", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
@@ -168,8 +168,3 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 })
 </script>
-<!--script type="text/javascript">
-  function wait() {
-    $.blockUI({ message: '<h1> Just a moment...</h1>' });
-  }
-</script-->

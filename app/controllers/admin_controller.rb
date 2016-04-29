@@ -3,7 +3,6 @@ class AdminController < ApplicationController
 
   def index
   	@pendingstudents = Student.where(issued: 'f')
-    @issuedstudents = Student.where(issued: 't').order("id desc").limit(20)
   end
 
   def list
@@ -116,6 +115,13 @@ class AdminController < ApplicationController
     redirect_to admin_workstudentslist_path(:id => params["wsid"])
   end
 
+  def spage
+  end
+
+  def search
+    @student = Student.find_by(unmid: search_params[:unmid])
+  end
+
   private
   
   def workshop_params
@@ -132,6 +138,10 @@ class AdminController < ApplicationController
 
   def editworkstudent_params
     params.permit(:id,:unmid,:email,:name,:wsid)
+  end
+
+  def search_params
+    params.permit(:unmid)
   end
 
 end

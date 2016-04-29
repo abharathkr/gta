@@ -40,6 +40,10 @@ Rails.application.routes.draw do
   get 'students/applicationfinished'
 
   get 'students/search'
+
+  get 'admin/spage'
+
+  get 'admin/search'
   
   devise_for :admins
   resources :students
