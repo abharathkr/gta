@@ -120,6 +120,13 @@ class AdminController < ApplicationController
 
   def search
     @student = Student.find_by(unmid: search_params[:unmid])
+    if @student
+      @studentcourses = Studentcourse.where(student_id: @student.id)
+      @studentworkshops = Studentworkshop.find_by(student_id: @student.id)
+      @workshops = WorkshopsStudent.where(:unmid => @student.id)
+    else
+      @workshops = WorkshopsStudent.where(:unmid => search_params[:unmid])
+    end
   end
 
   private

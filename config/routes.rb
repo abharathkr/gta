@@ -45,10 +45,13 @@ Rails.application.routes.draw do
 
   get 'admin/search'
   
-  devise_for :admins
+  #devise_for :admins
   resources :students
   root to: 'students#new'
 
+  devise_for :admins, path_names: {
+    sign_up: ''
+  }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

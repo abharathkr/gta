@@ -37,7 +37,10 @@ class StudentsController < ApplicationController
     @studentcourses = Studentcourse.new(student_courses_params)
     if Student.exists?(:unmid => student_params[:unmid])
       flash.now[:error] = "You already submitted the application. If you have any queries please mail to gta@unm.edu"
-      render action: "new"        
+      render action: "new"
+    elsif WorkshopsStudent.select(:workshop_id).where(:unmid => student_params[:unmid]).size < 4
+      flash.now[:error] = "You did not attend at least 4 Workshops as per our records. Please check the workshops you have selected. If you have any queries please mail to gta@unm.edu"
+      render action: "new"
     elsif ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course1_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course2_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.teachexp_content_type)
       @student = Student.new(student_params)
       @student.issued = false
@@ -101,6 +104,7 @@ class StudentsController < ApplicationController
   end
 
   def applicationfinished
+    
   end
 
   private

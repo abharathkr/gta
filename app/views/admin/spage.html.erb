@@ -7,7 +7,7 @@
 		</div>
 		<%= form_tag('/admin/search', :method => 'get') do %>
 		<div class="col-xs-6">
-		<%= number_field_tag :search, params[:search], :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", class: "form-control" %>
+		<%= number_field_tag :unmid, params[:unmid], :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", class: "form-control" %>
 		</div>
 		<%= submit_tag "Search", :name => nil, class: "btn btn-success" %>
 		<% end %>

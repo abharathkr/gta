@@ -8,28 +8,30 @@
     <br>
 
     <div class="row">
-      <p><strong>UNM ID</strong></p>
+      <p><strong>UNM Net ID</strong></p>
       <%= number_field_tag :unmid, nil, :required => true, in: 100000000...200000001, :onkeypress => "return isNumeric(event)", :oninput => "maxLengthCheck(this)", :class => "form-control" %>
     </div>
   
     <br>
     <div class="row">
-      <p><strong>Email</strong></p>
+      <p><strong>UNM Email ID</strong></p>
       <%=  email_field_tag :email, nil, :required => true , class: "form-control" %>
     </div>
   </div>
 
   <div class="field form-group col-md-8 col-md-offset-1 ">
-    <h4 class="text-primary">Please upload pdf or png or jpg or jpeg files only</h4>
+    <h4 class="text-danger">Please upload pdf/png/jpg/jpeg files only</h4>
     <div class="row">
-      <p><strong>Course 1</strong></p>
+      <p><strong>Enter Year and Semester of OILS 583 Completion</strong></p>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course1year]", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course1sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
-      <div class="col-md-8">
+      </div>
+      <div class="row">
+      <div class="col-md-12"><strong>Submit OILS 583 course completion (soft copy of transcript)</strong>
         <input class="btn btn-primary req" required="Please attach this file" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
         <input class="req" type="file" required="required"
@@ -40,14 +42,16 @@
     </div>
     <br>
     <div class="row">
-      <p><strong>Course 2</strong></p>
+      <p><strong>Enter Year and Semester of EDPY 630 Completion</strong></p>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course2year]", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
       </div>
       <div class="col-md-2">
         <%= select_tag "studentcourse[course2sem]", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control' %>
       </div>
-      <div class="col-md-8">
+      </div>
+      <div class="row">
+      <div class="col-md-12"><strong>Submit EDPY 630 course completion (soft copy of transcript)</strong>
         <input class="btn btn-primary req" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
         <input class="req" type="file" required="required"
@@ -58,7 +62,7 @@
     </div>
     <br>
     <div class="row">
-      <p><strong>Teaching Experience</strong></p>
+      <p><strong>Please submit a scanned copy of signed letter from your department chair attesting that you have taught a college course, or have designed and delivered at least three classroom lectures Choose File</strong></p>
       <div class="col-md-12">
         <input class="btn btn-primary req" type="button" value="Upload File.." onclick="$(this).parent().find('input[type=file]').click();"/>
         <span class="badge badge-important" ></span>
@@ -73,7 +77,7 @@
   <div class="form-group" >
     <div class="row">
     <div class="col-md-10" style="padding-top:20px">
-    <p><strong>Workshops Attended</strong></p>
+    <p><strong>Attendance at no fewer than 4 CTL workshops</strong></p>
     <div class="col-md-2">
     <%= select_tag "y1", options_for_select( 2015.. DateTime.now.year), :class => 'form-control' %>
     </div>
@@ -130,10 +134,35 @@
 
   <div class="row">
   <div class="col-md-5 actions">
-    <%= submit_tag "Submit", :name => nil, :onclick => "wait()", class: "btn btn-success" %>
+    <%= submit_tag "Submit",:id => "sub", :name => nil, :onclick => "return wait()", class: "btn btn-success" %>
   </div>
   </div>
 <% end %>
+<script type="text/javascript">
+var button = document.getElementById("sub");
+function wait(){
+  y1 = button.form.y1.value;
+  s1 = button.form.s1.value;
+  n1 = button.form.n1.value;
+  y2 = button.form.y2.value;
+  s2 = button.form.s2.value;
+  n2 = button.form.n2.value;
+  y3 = button.form.y3.value;
+  s3 = button.form.s3.value;
+  n3 = button.form.n3.value;
+  y4 = button.form.y4.value;
+  s4 = button.form.s4.value;
+  n4 = button.form.n4.value;
+  c1 = y1.concat(s1).concat(n1);
+  c2 = y2.concat(s2).concat(n2);
+  c3 = y3.concat(s3).concat(n3);
+  c4 = y4.concat(s4).concat(n4);
+  if (c1 == c2 || c1 == c3 || c1 == c4 || c2 == c3 || c2 == c4 || c3 == c4 ){
+    alert("Please select different workshops which you have attended");
+    return false;
+  } 
+}
+</script>
 
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {

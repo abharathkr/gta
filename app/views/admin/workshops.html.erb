@@ -11,7 +11,7 @@
 <%= select_tag "semester", "<option>Fall</option><option>Summer</option><option>Spring</option>".html_safe, :class => 'form-control'%>
 </div>
 <div class="field form-group col-sm-5">
-<%= text_field_tag :name,nil, :class => 'form-control' %>
+<%= text_field_tag :name,nil,:required => true, :class => 'form-control' %>
 </div>
 <div class="field form-group col-sm-3"><br>
 <%= submit_tag "Submit", :class => 'btn btn-success'%>
