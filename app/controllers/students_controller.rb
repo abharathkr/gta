@@ -58,7 +58,7 @@ class StudentsController < ApplicationController
           format.json { render json: @student.errors, status: :unprocessable_entity }
         end
       end
-      AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses,@student).deliver_later
+      AdminMailer.success_mail('syamdokuparthi@unm.edu',@studentcourses,@student).deliver_later
     else
       flash.now[:error] = "Please attach pdf or jpg or png files only"
       render action: "new"
