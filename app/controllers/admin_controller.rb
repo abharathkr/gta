@@ -77,6 +77,8 @@ class AdminController < ApplicationController
 
   def deleteworkshop
     @wsp = Workshop.find_by(id: params["id"])
+    @stus = WorkshopsStudent.where(:workshop_id => @wsp.id)
+    @stus.destroy_all
     @wsp.destroy
     redirect_to admin_workshops_path    
   end
