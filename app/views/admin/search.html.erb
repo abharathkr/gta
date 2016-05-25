@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-xs-6">
 		<% if @student %>
-		<h5>Student Application Details</h5>
+		<h4>Student Application Details</h4>
 		<table class="table table-bordered table-hover table-condensed">
 		<thead>
 	      <tr>
@@ -48,6 +48,8 @@
 		<td><%= @studentworkshops.n4 %></td>
 		</tr>
 		</table>
+		<% else %>
+		<h4>Student did not apply for a certificate</h4>
 		<% end %>
 		<% if @workshops.size > 0 %>
 		<h4>Student Details as per admin records</h4>
@@ -59,6 +61,11 @@
 	        <th>Email</th>
 	      </tr>
 	    </thead>
+	      <tr>
+			<td><%= @workshops.first.unmid %></td>
+			<td><%= @workshops.first.name %></td>
+			<td><%= @workshops.first.email %></td>
+		  </tr>
 	    <% @workshops.first do |w|%>
 		<tr>
 		<td><%= w.unmid %></td>

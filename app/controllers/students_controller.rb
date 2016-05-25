@@ -42,6 +42,7 @@ class StudentsController < ApplicationController
       flash.now[:error] = "You did not attend at least 4 Workshops as per our records. Please check the workshops you have selected. If you have any queries please mail to gta@unm.edu"
       render action: "new"
     elsif ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course1_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.course2_content_type) and ["application/pdf","image/png", "image/jpg", "image/jpeg"].include?(@studentcourses.teachexp_content_type)
+      begin
       @student = Student.new(student_params)
       @student.issued = false
       @studentworkshops = Studentworkshop.new(studentworkshops_params)
@@ -51,6 +52,11 @@ class StudentsController < ApplicationController
           @studentcourses.save
           @studentworkshops.student_id = @student.id
           @studentworkshops.save
+          if Rails.env.production?
+            AdminMailer.success_mail('syamdokuparthi@unm.edu',@studentcourses,@student).deliver_later
+          else
+            AdminMailer.success_mail('reddysbharath@gmail.com',@studentcourses,@student).deliver_later
+          end
           format.html { redirect_to students_applicationfinished_path, notice: 'Student was successfully created.' }
           format.json { render :show, status: :created, location: @student }
         else
@@ -58,7 +64,17 @@ class StudentsController < ApplicationController
           format.json { render json: @student.errors, status: :unprocessable_entity }
         end
       end
-      AdminMailer.success_mail('syamdokuparthi@unm.edu',@studentcourses,@student).deliver_later
+      rescue
+        @stu = Student.find_by(:unmid => student_params[:unmid])
+        @stu.destroy
+        @stuworks = Studentworkshop.find_by(:student_id => @student.id)
+        @stuworks.destroy
+        @stucourses = Studentcourse.find_by(:student_id => @student.id)
+        @stucourses.destroy
+        flash.now[:error] = "There was some error while processing your application. Please reapply. If you are still facing problem applying, email to gradta@unm.edu"
+        render action: "new"
+        return
+      end
     else
       flash.now[:error] = "Please attach pdf or jpg or png files only"
       render action: "new"
